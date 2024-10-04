@@ -149,7 +149,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
+            'format': '{levelname} {asctime} {message}',
             'style': '{',
         },
     },
@@ -157,15 +157,20 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'login.custom_loggings.TimestampedRotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, f'loggers/user_signin.log'),
+            'filename': os.path.join(BASE_DIR, 'loggers/user_signin.log'),
             'maxBytes': 1024 * 10,  # 10KB
             'backupCount': 3,
+            'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
     },
     'loggers': {
         'user_signin': {
-            'handlers': ['file'],
+            'handlers': ['file', 'console'],
             'level': 'INFO',
             'propagate': False,
         },
